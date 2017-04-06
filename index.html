@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html ng-app="Questionaire">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/controllers/StartController.js"></script>
+        <script src="js/controllers/VpQuestionsController.js"></script>
+        <script src="js/factories/VpQuestion_Metrics.js"></script>
+        <script src="js/factories/vpDataservice.js"></script>
+        <script src="js/factories/mgrDataservice.js"></script>
+        <script src="js/controllers/ResultsController.js"></script>
+        <script src= "js/controllers/ManagerController.js"></script>
+        <script src= "js/factories/MgrQuestion_metrics.js"></script>
+        <script src="js/controllers/MgrResultController.js"></script>
+        <title>Questionaire</title>
+    </head>
+    <body>
+             <!-- Startcontroller Area -->
+            <div class="container"  ng-controller="StartController as strt" ng-hide="strt.QsnMetrics.StartActive || strt.QsnMetrics.resultActive || strt.MgrQsnMetrics.StartActiveMgr || strt.MgrQsnMetrics.resultActiveMgr">
+                <form>
+                <h1 class="heading">Questionaire</h1>
+                <div class="line"><label for="username">Email: </label>
+                <input class="nice" type="email" id="username"  class="form-control" placeholder="Please enter your email" />
+                </div>
+                <div class="line"><label for="companyname">Company Name: </label>
+                <input class="nice" type="text" id="company"  class="form-control" placeholder="Please enter your company name" />
+                </div>
+                <div class="line"><label for="role">Role:</label>
+                <select  id="selectrole" class="form-control"  ng-model="strt.data.selectedOption" 
+                 ng-options="option.name for option in strt.data.availableOptions track by option.id"></select>
+                </div>
+                 <br>
+                <div class="line"><label for="companycategory">Company Category:</label>
+                <select  id="selectcompany" class="form-control"  ng-model="strt.companycategory.selectedCategory" 
+                 ng-options="option.cat for option in strt.companycategory.categoryOptions track by option.id"
+                ></select>
+                </div>
+                <br>
+                <div>
+                <button type="submit" class="btn btn-default pull-right" ng-click="strt.StartQuestionaire(strt.data.selectedOption)">Start</button>  
+                </div>
+                </form>
+            </div>
+
+<!-- QuestionController Area for Vice President-->
+<div class="container">
+            <!-- Progress Area -->
+        <div ng-controller="QuestionsController as qns" ng-show="qns.QsnMetrics.StartActive">
+            <div class="row">
+                <div class="col-xs-8">
+                    <h2>Progress:</h2>
+                    <div class="btn-toolbar">
+                        <button class="btn"
+                         ng-repeat="question in qns.DataService.questions"
+                            ng-class="{'btn-info': question.selected !== null, 'btn-danger': question.selected === null}">
+                            <span class="glyphicon" ng-class="{'glyphicon-pencil': question.selected !==null, 'glyphicon-question-sign': 
+                            question.selected ===null}">
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="row">
+                        <h4>Legend:</h4>
+                        <div class="col-sm-4">
+                            <button class="btn btn-info">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <p>Answered</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-danger">
+                                <span class="glyphicon glyphicon-question-sign"></span>
+                            </button>
+                            <p>Unanswered</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of progress area -->
+
+                 <div class="row">
+                     <!-- for showing alert when user have not answered all of the questions --> 
+                     <div class="alert alert-danger" ng-show="qns.error">
+                        <strong>Error!</strong> You have not answered all of the questions.
+                        <button class="close" ng-click= "qns.error = false">&times</button>
+                        </div>
+               <h3>Question:</h3>
+                <div class="well well-sm" ng-hide="qns.finalise">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h4>{{qns.activeQuestion+1 + ". " + qns.DataService.questions[qns.activeQuestion].text}}</h4>
+                            <div class="row">
+                                <div class= "col-sm-6" ng-repeat= "answer in qns.DataService.questions
+                                [qns.activeQuestion].possibilities">
+                                <h4 class="answer" ng-class="{'btn-info': $index=== qns.DataService.questions[qns.activeQuestion].selected}"
+                                ng-click="qns.selectAnswer(answer,$index)">
+                                    {{answer.answer}} 
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <button class="btn btn-warning" 
+                                ng-class="{'btn-info': $index=== qns.DataService.questions[qns.activeQuestion].selected}"
+                                 ng-click="qns.questionAnswered()">Next</button>
+                                 <br>
+                        <div> <br>Weightage is: {{qns.nexttotal}}</div>
+                        </div>
+                           
+                <!-- for showing alert to submit result -->
+                 <div class="well well-sm" ng-show="qns.finalise">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h3>Are you sure you want to submit your answers?</h3>
+                            <button class="btn btn-success" ng-click="qns.finaliseAnswers()">Yes</button>
+                            <button class="btn btn-danger" ng-click="qns.finalise = false">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+
+
+<!-- Questionaire Area for Manager-->
+<div class="container">
+            <!-- Progress Area-->
+        <div ng-controller="ManagerController as mgrqns" ng-show="mgrqns.MgrQsnMetrics.StartActiveMgr">
+            <div class="row">
+                <div class="col-xs-8">
+                    <h2>Progress:</h2>
+                    <div class="btn-toolbar">
+                        <button class="btn"
+                         ng-repeat="question in mgrqns.MgrDataService.questions"
+                            ng-class="{'btn-info': question.selected !== null, 'btn-danger': question.selected === null}">
+                            <span class="glyphicon" ng-class="{'glyphicon-pencil': question.selected !==null, 'glyphicon-question-sign': 
+                            question.selected ===null}">
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="row">
+                        <h4>Legend:</h4>
+                        <div class="col-sm-4">
+                            <button class="btn btn-info">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <p>Answered</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-danger">
+                                <span class="glyphicon glyphicon-question-sign"></span>
+                            </button>
+                            <p>Unanswered</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of progress area-->
+
+                 <div class="row">
+                     <!-- for showing alert when user have not answered all of the questions -->
+                     <div class="alert alert-danger" ng-show="mgrqns.errormgr">
+                        <strong>Error!</strong> You have not answered all of the questions.
+                        <button class="close" ng-click= "mgrqns.errormgr = false">&times</button>
+                        </div>
+               <h3>Question:</h3>
+                <div class="well well-sm" ng-hide="mgrqns.finalisemgr">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h4>{{mgrqns.activeQuestionmgr+1 + ". " + mgrqns.MgrDataService.questions[mgrqns.activeQuestionmgr].text}}</h4>
+                            <div class="row">
+                                <div class= "col-sm-6" ng-repeat= "answer in mgrqns.MgrDataService.questions
+                                [mgrqns.activeQuestionmgr].possibilities">
+                                <h4 class="answer" ng-class="{'btn-info': $index=== mgrqns.MgrDataService.questions[mgrqns.activeQuestionmgr].selected}"
+                                ng-click="mgrqns.selectAnswermgr(answer,$index)">
+                                    {{answer.answer}} 
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <button class="btn btn-warning" ng-click="mgrqns.questionAnsweredmgr()">Next</button>
+                         <div> <br>Weightage is: {{mgrqns.nexttotalmgr}}</div>
+                        </div>
+                        
+                <!-- for showing alert to submit result--> 
+                 <div class="well well-sm" ng-show="mgrqns.finalisemgr">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h3>Are you sure you want to submit your answers?</h3>
+                            <button class="btn btn-success" ng-click="mgrqns.finaliseAnswersmgr()">Yes</button>
+                            <button class="btn btn-danger" ng-click="mgrqns.finalisemgr = false">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+
+
+
+<!-- ResultController area for V.P-->  
+<div class="container">
+        <div ng-controller="ResultsController as results" ng-show="results.QsnMetrics.resultActive">
+            <!--
+          <div class="row">
+              <!-- Button-Toolbar 
+                <div class="col-xs-8">
+                    <h2>Results:</h2>
+                    <div class="btn-toolbar">
+                        <button class="btn"
+                         ng-repeat="question in results.DataService.questions"
+                            ng-class="{'btn-success': question.correct, 'btn-danger': !question.correct}" 
+                            ng-click='results.setActiveQuestion($index)'>
+                            <span class="glyphicon" ng-class="{'glyphicon-ok': question.correct, 'glyphicon-remove': 
+                            !question.correct}">
+                            </span>
+                        </button>
+                    </div>
+                </div>
+          <!--Legend Area
+        <div class= "col-xs-4">
+            <h3>Legend:</h3>
+         <div class="row">
+        <div class="col-sm-4">
+            <button class="btn btn-success">
+                <span class= "glyphicon glyphicon-ok">
+                </span>
+                </button>
+                  <p>Correct</p>
+            </div>
+           <div class="col-sm-4">
+               <button class="btn btn-danger">
+                   <span class="glyphicon glyphicon-remove">
+                   </span>
+               </button>
+               <p>Incorrect</p>
+              </div>
+            </div>
+        </div>
+   
+   <!-- Questios Area 
+<div class="row">
+    <h3>Questions:</h3>
+<div class="well well-sm">
+    <div class="col-xs-12">
+        <h4>{{results.activeQuestion+1 + "." + results.DataService.questions[results.activeQuestion].text}}</h4>
+        <div class="row">
+            <div class="col-sm-6" ng-repeat="answer in results.DataService.questions[results.activeQuestion].possibilities">
+                <h4 class="answer" ng-class="results.getAnswer($index)">
+                    {{answer.answer}}
+                </h4>
+                </div>
+              </div>
+            </div>
+         </div>    
+      </div>-->
+      <h1>Your Total Weightage is: {{results.QsnMetrics.totalweight}}</h1>
+      </div> 
+</div>
+<!-- MgrResultController area for Manager-->
+<div class="container">
+        <div ng-controller="MgrResultController as mgrresults" ng-show="mgrresults.MgrQsnMetrics.resultActiveMgr">
+             <h1>Your Total Weightage is: {{mgrresults.MgrQsnMetrics.totalweightmgr}}</h1>
+        </div>
+</div>
+
+</body>
+</html>
+
+ 
