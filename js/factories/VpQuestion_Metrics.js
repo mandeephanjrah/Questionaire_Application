@@ -12,7 +12,8 @@ QsnMetrics.$inject= ['DataService','$rootScope'];
    // markAnswers: markAnswers,
     numcorrect: 0,
     totalweight:0,
-    nextweight:0
+    nextweight:0,
+    notsubmit:false
     };
     return qnsobj;
 
@@ -20,6 +21,7 @@ function changeState(metric, state){
         if(metric==="qns"){
     qnsobj.StartActive=state;
     qnsobj.nextweight=$rootScope.totalweight;
+      qnsobj.notsubmit="true";
         }
        else if(metric==="results"){
       qnsobj.resultActive=state;

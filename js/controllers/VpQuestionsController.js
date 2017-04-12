@@ -2,7 +2,7 @@
 var app = angular.module("Questionaire");
 app.controller('QuestionsController', QuestionsController);
 QuestionsController.$inject=['QsnMetrics','DataService','$rootScope'];
-function QuestionsController(QsnMetrics, DataService, $rootScope){
+function QuestionsController(QsnMetrics, DataService, $rootScope, $state){
      qns=this;
      //qns.MyVar= myService.sharedObject;
      qns.QsnMetrics=QsnMetrics;
@@ -19,6 +19,9 @@ function QuestionsController(QsnMetrics, DataService, $rootScope){
      qns.totalweight;
      $rootScope.totalweight;
      qns.nexttotal;
+     qns.nextid;
+     qns.index=0;
+     qns.notsubmitanswers=notsubmitanswers;
       
 function setActiveQuestion(index){
             // no argument passed, data = undefined.
@@ -42,7 +45,9 @@ function setActiveQuestion(index){
     }*/
     //get index and make question at that particular index as active
    //else{
-       qns.activeQuestion=index;
+      // qns.activeQuestion=index;
+      qns.activeQuestion=qns.nextid;
+      qns.index++;
     }
 //}
 
@@ -66,14 +71,15 @@ function questionAnswered(value){
  //if active question have been answered
   if(DataService.questions[qns.activeQuestion].selected !== null){
    numquestionsAnswered++;
-    if(numquestionsAnswered >= questionslength){
+   // if(numquestionsAnswered >= questionslength){
      //loop through all the questions to check if all are answered
-      for(var i=0; i<questionslength; i++){
+     /* for(var i=0; i<questionslength; i++){
         if(DataService.questions[i].selected ===null){
           setActiveQuestion(i);
           return;
         }
-      }
+      }*/
+    if(qns.nextid=== null){
     qns.error= false;
     qns.finalise= true;  
     return; 
@@ -87,7 +93,10 @@ qns.setActiveQuestion();
  function selectAnswer(value,index){
     //getting weight of answer
    var total=value.weight;
+   var nextid= value.nextid;
+   console.log(nextid);
    qns.totalweight=total;
+   qns.nextid=nextid;
    DataService.questions[qns.activeQuestion].selected=index;
  }
  function finaliseAnswers(){
@@ -97,6 +106,20 @@ qns.setActiveQuestion();
    //QsnMetrics.markAnswers();
     QsnMetrics.changeState("qns", false);
     QsnMetrics.changeState("results", true);
+  }
+
+  function notsubmitanswers(){
+     numquestionsAnswered= 0;
+    qns.activeQuestion= 0;
+    qns.finalise= false;
+    QsnMetrics.changeState("qns", false);
+    QsnMetrics.changeState("results", false);
+     qns.index=0;
+    qns.nextid=0;
+     $rootScope.totalweight=0;
+     qns.sum=[];
+    qns.nexttotal=0;
+    $state.reload()
   }
  }
 }());
