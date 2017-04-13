@@ -4,7 +4,6 @@
  StartController.$inject= ['QsnMetrics','DataService','$rootScope', 'MgrDataService','MgrQsnMetrics'];
  function StartController(QsnMetrics, DataService,$rootScope, MgrDataService,MgrQsnMetrics){
      strt=this;
-    // strt.MyVar = myService.sharedObject;
      strt.QsnMetrics=QsnMetrics;
      strt.MgrQsnMetrics=MgrQsnMetrics;
      strt.StartQuestionaire=StartQuestionaire;
@@ -18,11 +17,11 @@
   };
   strt.companycategory = {
     categoryOptions: [
-      {id: '1', cat: 'Software'},
+      {id: '1', cat: 'Sales'},
       {id: '2', cat: 'Healthcare'},
-      {id: '3', cat: 'Business Development'}
+      {id: '3', cat: 'Marketing'}
     ],
-    selectedCategory: {id: '1', cat: 'Software'} //This sets the default value of the select in the ui
+    selectedCategory: {id: '1', cat: 'Sales'} //This sets the default value for company category  of the select in the ui
   };
     function StartQuestionaire(selectedRole){
         $rootScope.selectedRole=selectedRole.name

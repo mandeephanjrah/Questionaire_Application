@@ -52,7 +52,7 @@
 <div class="container">
             <!-- Progress Area -->
         <div ng-controller="QuestionsController as qns" ng-show="qns.QsnMetrics.StartActive">
-            <div class="row">
+            <div class="row"> 
                 <div class="col-xs-8">
                     <h2>Progress:</h2>
                     <div class="btn-toolbar">
@@ -209,66 +209,14 @@
 <!-- ResultController area for V.P-->  
 <div class="container">
         <div ng-controller="ResultsController as results" ng-show="results.QsnMetrics.resultActive">
-            <!--
-          <div class="row">
-              <!-- Button-Toolbar 
-                <div class="col-xs-8">
-                    <h2>Results:</h2>
-                    <div class="btn-toolbar">
-                        <button class="btn"
-                         ng-repeat="question in results.DataService.questions"
-                            ng-class="{'btn-success': question.correct, 'btn-danger': !question.correct}" 
-                            ng-click='results.setActiveQuestion($index)'>
-                            <span class="glyphicon" ng-class="{'glyphicon-ok': question.correct, 'glyphicon-remove': 
-                            !question.correct}">
-                            </span>
-                        </button>
-                    </div>
-                </div>
-          <!--Legend Area
-        <div class= "col-xs-4">
-            <h3>Legend:</h3>
-         <div class="row">
-        <div class="col-sm-4">
-            <button class="btn btn-success">
-                <span class= "glyphicon glyphicon-ok">
-                </span>
-                </button>
-                  <p>Correct</p>
-            </div>
-           <div class="col-sm-4">
-               <button class="btn btn-danger">
-                   <span class="glyphicon glyphicon-remove">
-                   </span>
-               </button>
-               <p>Incorrect</p>
-              </div>
-            </div>
-        </div>
-   
-   <!-- Questios Area 
-<div class="row">
-    <h3>Questions:</h3>
-<div class="well well-sm">
-    <div class="col-xs-12">
-        <h4>{{results.activeQuestion+1 + "." + results.DataService.questions[results.activeQuestion].text}}</h4>
-        <div class="row">
-            <div class="col-sm-6" ng-repeat="answer in results.DataService.questions[results.activeQuestion].possibilities">
-                <h4 class="answer" ng-class="results.getAnswer($index)">
-                    {{answer.answer}}
-                </h4>
-                </div>
-              </div>
-            </div>
-         </div>    
-      </div>-->
-      <h1>Your Total Weightage is: {{results.QsnMetrics.totalweight}}</h1>
+        <h1>Total Weightage is: {{results.QsnMetrics.totalweight}}</h1>
       </div> 
 </div>
+
 <!-- MgrResultController area for Manager-->
 <div class="container">
         <div ng-controller="MgrResultController as mgrresults" ng-show="mgrresults.MgrQsnMetrics.resultActiveMgr">
-             <h1>Your Total Weightage is: {{mgrresults.MgrQsnMetrics.totalweightmgr}}</h1>
+             <h1>Total Weightage is: {{mgrresults.MgrQsnMetrics.totalweightmgr}}</h1>
         </div>
 </div>
 

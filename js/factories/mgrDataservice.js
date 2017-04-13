@@ -4,12 +4,10 @@ app.factory("MgrDataService", MgrDataService);
 function MgrDataService(){
     mgrdataobj={
         questions:Questions,
-        correctanswers:correctanswers
     };
     return mgrdataobj;
 }
 
-var correctanswers= [1, 2, 4, 3, 2, 4, 3, 4, 1, 3];
 
  var Questions  = [
      {
