@@ -12,198 +12,212 @@ function MgrDataService(){
  var Questions  = [
      {
             type: "text",
-            text: "Which model can be selected if user is involved in all the phases of SDLC?",
+            id: 1,
+            text: "Do you recently acquired any project?",
             possibilities: [
                 {
-                    answer: "Waterfall Model",
-                    weight:"25"
+                    answer: "Yes",
+                    weight:"100",
+                    nextid:1
                 },
                 {
-                    answer: "Prototyping Model",
-                    weight:"50"
-                },
-                {
-                    answer: "RAD Model",
-                    weight:"100"
-                },
-                {
-                    answer: "both b & c",
-                    weight:"0"
+                    answer: "No",
+                    weight:"25",
+                    nextid:2
                 }
             ],
             selected: null,
-            correct: null
         },
          {
             type: "text",
-            text: "SDLC stands for",  
+            id:2,
+            text: "Your recently acquired project related with......",  
             possibilities: [
                 {
-                    answer: "Software Development Life Cycle",
-                    weight:"100"
+                    answer: "Business",
+                    weight:"100",
+                    nextid:3
                 },
                 {
-                    answer: "System Development Life cycle",
-                    weight:"0"
+                    answer: "Healthcare",
+                    weight:"100",
+                    nextid:4
                 },
                 {
-                    answer: "Software Design Life Cycle",
-                    weight:"50"
+                    answer: "Banking",
+                    weight:"100",
+                    nextid:5
                 },
                 {
-                    answer: "System Design Life Cycle",
-                    weight:"25"
+                    answer: "other",
+                    weight:"75",
+                    nextid:6
                 }
             ],
             selected: null,
-            correct: null
+           
         },
          {
             type: "text",
-            text: "What is the major drawback of using RAD Model?",
+            id:3,
+            text: "When did you got your last project?",
             possibilities: [
                 {
-                    answer: "Highly specialized & skilled developers/designers are required.",
-                    weight:"50"
+                    answer: "3-6 months ago",
+                    weight:"100",
+                    nextid:7
                 },
                 {
-                    answer: "Increases re-usability of components.",
-                    weight:"25"
+                    answer: "7-9 months ago",
+                    weight:"75",
+                    nextid:7
                 },
                 {
-                    answer: "Encourages customer/client feedback.",
-                    weight:"0"
+                    answer: "10-12 months ago",
+                    weight:"50",
+                     nextid:7
                 },
                 {
-                    answer: "Both a & c",
-                    weight:"100"
+                    answer: "1-2 year ago",
+                    weight:"25",
+                     nextid:7
                 }
             ],
             selected: null,
-            correct: null
+            
         },
        
          {
             type: "text",
-            text: "RAD Model has",
+            id:4,
+            text: "Is this your first project related with business?",
             possibilities: [
                 {
-                    answer: "2 phases",
-                    weight:"50"
+                    answer: "Yes",
+                    weight:"50",
+                    nextid:7
                 },
                 {
-                    answer: "3 phase",
-                    weight:"0"
-                },
-                {
-                    answer: "5 phases",
-                    weight:"100"
-                },
-                {
-                    answer: "6 phases",
-                    weight:"25"
+                    answer: "No",
+                    weight:"100",
+                    nextid:7 
                 }
             ],
             selected: null,
-            correct: null
+           
         },
 
         {
             type: "text",
-            text: "Build & Fix Model is suitable for programming exercises of ___________ LOC ",
+            id:5,
+            text: "Is this your first project related with Healthcare?",
             possibilities: [
                  {
-                    answer: "100-200",
-                    weight:"100"
+                    answer: "Yes",
+                    weight:"50",
+                    nextid:7
                 },
                 {
-                    answer: "200-400",
-                    weight:"25"
-                },
-                {
-                    answer: "400-1000",
-                    weight:"50"
-                },
-                {
-                    answer: "above 1000",
-                    weight:"0"
+                    answer: "No",
+                    weight:"100",
+                    nextid:7 
                 }
             ],
             selected: null,
-            correct: null
+            
         },
-        {
+       {
             type: "text",
-            text: "RAD stands for",
+            id: 6,
+            text: "Is this your first project related with Banking?",
             possibilities: [
                 {
-                    answer: "Relative Application Development",
-                    weight:"50"
+                    answer: "Yes",
+                    weight:"50",
+                    nextid:7
                 },
                 {
-                    answer: " Rapid Application Development",
-                     weight:"100"
-                },
-                {
-                    answer: "Rapid Application Document",
-                    weight:"25"
-                },
-                {
-                    answer: "None of the above",
-                    weight: "0"
-
+                    answer: "No",
+                    weight:"100",
+                    nextid:7 
                 }
             ],
             selected: null,
-            correct: null
-        },
-        {
+             },
+              {
             type: "text",
-            text: "Which one of the following models is not suitable for accommodating any change?",
+            id:7,
+            text: "Is this your first project?",
             possibilities: [
                 {
-                    answer: "Build & Fix Model",
-                    weight:"50"
+                    answer: "Yes",
+                    weight:"50",
+                    nextid:7
                 },
                 {
-                    answer: "Prototyping Model",
-                    weight:"0"
-                },
-                {
-                    answer: "RAD Model",
-                    weight:"25"
-                },
-                {
-                    answer: "Waterfall Model",
-                    weight:"100"
+                    answer: "No",
+                    weight:"100",
+                    nextid:7
                 }
             ],
             selected: null,
-            correct: null
-        },
+             },
         {
+            type: "text",
+            id:8,
+            text: "On how many projects currently you are working on?",
+            possibilities: [
+                {
+                    answer: "less than 3",
+                    weight:"25",
+                    nextid:null
+                },
+                {
+                    answer: "more than 3",
+                    weight:"50",
+                    nextid:null
+                },
+                {
+                    answer: "less than 7",
+                    weight:"75",
+                    nextid:null
+                },
+                {
+                    answer: "more than 10",
+                    weight:"100",
+                    nextid:null
+                }
+            ],
+            selected: null,
+           
+        },
+      /*  {
             type: "text",
             text: "Which is not one of the types of prototype of Prototyping Model?",
             possibilities: [
                 {
                     answer: "Horizontal Prototype",
-                    weight:"0"
+                    weight:"0",
+                    nextid:null
                 },
                 {
                     answer: "Vertical Prototype",
-                    weight:"50"
+                    weight:"50",
+                    nextid:null
                 },
                 {
                     answer: "Diagonal Prototype",
-                    weight:"100"
+                    weight:"100",
+                    nextid:null
                 },
                 {
                     answer: "Domain Prototype",
-                    weight:"25"
+                    weight:"25",
+                    nextid:null
                 }
             ],
             selected: null,
-            correct: null
+            
         },
         {
             type: "text",
@@ -212,25 +226,29 @@ function MgrDataService(){
             possibilities: [
                 {
                     answer: "Quick Design",
-                    weight:"50"
+                    weight:"50",
+                    nextid:null
                 },
                 {
                     answer: "Coding",
-                    weight:"100"
+                    weight:"100",
+                    nextid:null
                 },
                 {
                     answer: "Prototype Refinement",
-                    weight:"25"
+                    weight:"25",
+                    nextid:null
                 },
                 {
                     answer: "Engineer Product",
-                    weight:"0"
+                    weight:"0",
+                    nextid:null
                 }
             ],
             selected: null,
-            correct: null
+            
         },
-        {
+       {
             type: "text",
             text: "Which of the following statements regarding Build & Fix Model is wrong?",
             possibilities: [
@@ -253,11 +271,10 @@ function MgrDataService(){
             ],
             selected: null,
             correct: null
-        }
-      ];
+        }*/
+
+        
+          ];
+
 }());
-
-
-
-   
-   
+ 

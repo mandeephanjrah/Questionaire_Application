@@ -4,7 +4,6 @@ app.controller('ManagerController', ManagerController);
 ManagerController.$inject=['MgrQsnMetrics', 'MgrDataService','$rootScope'];
 function ManagerController(MgrQsnMetrics, MgrDataService, $rootScope){
      qnsmgr=this;
-     //qns.MyVar= myService.sharedObject;
      qnsmgr.MgrQsnMetrics=MgrQsnMetrics;
      qnsmgr.MgrDataService=MgrDataService;
      qnsmgr.questionAnsweredmgr= questionAnsweredmgr;
@@ -19,9 +18,14 @@ function ManagerController(MgrQsnMetrics, MgrDataService, $rootScope){
      qnsmgr.totalweightmgr;
      $rootScope.totalweightmgr;
      qnsmgr.nexttotalmgr;
+     qnsmgr.nextid;
+     qnsmgr.index=0;
+     qnsmgr.notsubmitanswers=notsubmitanswers;
       
     function setActiveQuestionmgr(index){
-        qnsmgr.activeQuestionmgr=index;
+        qnsmgr.activeQuestionmgr=qnsmgr.nextid;
+        qnsmgr.index++;
+
     }
 
     function questionAnsweredmgr(value){
@@ -44,14 +48,7 @@ function ManagerController(MgrQsnMetrics, MgrDataService, $rootScope){
     //if active question have been answered
         if(MgrDataService.questions[qnsmgr.activeQuestionmgr].selected !== null){
             numquestionsAnsweredmgr++;
-            if(numquestionsAnsweredmgr >= questionslengthmgr){
-            //loop through all the questions to check if all are answered
-                for(var i=0; i<questionslengthmgr; i++){
-                    if(MgrDataService.questions[i].selected ===null){
-                        setActiveQuestionmgr(i);
-                        return;
-                     }
-                }
+            if(qnsmgr.nextid=== null){
             qnsmgr.errormgr= false;
             qnsmgr.finalisemgr= true;  
             return; 
@@ -65,6 +62,9 @@ function ManagerController(MgrQsnMetrics, MgrDataService, $rootScope){
   function selectAnswermgr(value,index){
     var totalmgr=value.weight;
     qnsmgr.totalweightmgr=totalmgr;
+    var nextid= value.nextid;
+   console.log(nextid);
+   qnsmgr.nextid=nextid;
     MgrDataService.questions[qnsmgr.activeQuestionmgr].selected=index;
  }
 
@@ -74,6 +74,10 @@ function ManagerController(MgrQsnMetrics, MgrDataService, $rootScope){
     qnsmgr.finalisemgr= false;
     MgrQsnMetrics.changeStatemgr("qnst", false);
     MgrQsnMetrics.changeStatemgr("resultss", true);
+}
+
+function notsubmitanswers(){
+    window.location.reload();
 }
 }
 }());

@@ -1,9 +1,24 @@
 body{
-	background-ime: url("gray-528.jpg");
+	background-image: url("blackwood.jpg");
 }
-h1{
+
+.little-big-header {
+    font-size: 4.5rem;
+    margin: 0;
+    color: white;
+	font-family: "Telefon", Sans-Serif;
+	margin-bottom: 20px;
+	font-style: bold;
+	}
+#progress{
+	color: white;
+	font-family: "Lato", "Lucida Grande","Lucida Sans Unicode", Tahoma, Sans-Serif;
+}
+
+#questionhead{
 	color:white;
 	font-style:bold;
+	font-family: "Lato", "Lucida Grande","Lucida Sans Unicode", Tahoma, Sans-Serif;
 }
 form{
 	width:40%;
@@ -12,17 +27,26 @@ form{
 	align:center;
 }
 .line{
-	color:black;
+	color: white;
 	font-size:15px;
-	
+	font-family: "Lato", "Lucida Grande","Lucida Sans Unicode", Tahoma, Sans-Serif;
+	text-shadow: #ccc;
+	font-size: 20px;
+	box-sizing: border-box;
 }
 .nice{
 	width:100%;
-	height:30px;
+	height:40px;
 	border-radius:2px;
 	margin-top:10px;
 	margin-bottom:20px;	
-}
+	color: black;
+	border: 3px solid #ccc;
+	font-family: "Lato", "Lucida Grande","Lucida Sans Unicode", Tahoma, Sans-Serif;
+  	border-radius: 15px 30px 30px 5px;
+    transition: border-color 0.2s;
+	
+	}
 .centered{
 	text-align:center;
 	width:100%;
@@ -37,7 +61,8 @@ input.centered{
 .answer{
 padding: 15px 20px;
 border-radius:10p;
-border: 1px solid #bbb;
+border: 3px solid #ccc;
+border-radius: 15px 30px 30px 5px;
 }
 .answer:hover{
 		cursor: pointer;
@@ -45,3 +70,74 @@ border: 1px solid #bbb;
 	.tolbar-btn:hover {
     cursor: default;
 	}
+	#question{
+		background-color: #252527;
+		color:white;
+		font-family: "Lato", "Lucida Grande","Lucida Sans Unicode", Tahoma, Sans-Serif;
+		border:none;
+	}
+	#strt-btn{
+	background-color: #252527;
+	color: white;
+	font-family: "Lato", "Lucida Grande","Lucida Sans Unicode", Tahoma, Sans-Serif;
+    -webkit-appearance: none;
+	border: 2px solid #bbb;
+	border-radius: 15px 30px 30px 5px;
+    font-size: 2rem;
+    text-shadow: none;
+    line-height: 1.2;
+	cursor: pointer;
+    text-align: center;
+    font-weight: normal !important;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+#selectrole{
+	width:100%;
+	height:40px;
+	border-radius:2px;
+	margin-top:10px;
+	margin-bottom:20px;	
+	color: black;
+	border: 3px solid #ccc;
+	font-family: "Lato", "Lucida Grande","Lucida Sans Unicode", Tahoma, Sans-Serif;
+    transition: border-color 0.2s;
+	border-radius: 15px 30px 30px 5px;
+}
+	#selectcompany{
+	width:100%;
+	height:40px;
+	border-radius:2px;
+	margin-top:10px;
+	margin-bottom:20px;	
+	color: black;
+	border: 3px solid #ccc;
+	font-family: "Lato", "Lucida Grande","Lucida Sans Unicode", Tahoma, Sans-Serif;
+    transition: border-color 0.2s;
+	border-radius: 15px 30px 30px 5px;
+	}
+	#submit-alert{
+		color:white;
+		border: none;
+	}
+	#weightage{
+		color:white
+	}
+#legend{
+	color: white;
+}
+#next{
+	color: white;
+	font-family: "Lato", "Lucida Grande","Lucida Sans Unicode", Tahoma, Sans-Serif;
+    -webkit-appearance: none;
+	border: 2px solid #bbb;
+	border-radius: 15px 30px 30px 5px;
+    font-size: 2rem;
+    text-shadow: none;
+    line-height: 1.2;
+	cursor: pointer;
+    text-align: center;
+    font-weight: normal !important;
+	padding-left: 15px;
+	padding-right: 15px;
+}

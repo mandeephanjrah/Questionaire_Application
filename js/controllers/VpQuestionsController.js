@@ -4,7 +4,6 @@ app.controller('QuestionsController', QuestionsController);
 QuestionsController.$inject=['QsnMetrics','DataService','$rootScope'];
 function QuestionsController(QsnMetrics, DataService, $rootScope, $state){
      qns=this;
-     //qns.MyVar= myService.sharedObject;
      qns.QsnMetrics=QsnMetrics;
      qns.DataService=DataService;
      qns.questionAnswered= questionAnswered;
