@@ -18,22 +18,46 @@ function QuestionsController(QsnMetrics, DataService, $rootScope, $state){
      qns.totalweight;
      $rootScope.totalweight;
      qns.nexttotal;
-     qns.nextid;
+     qns.nextid= 1;
      qns.index=0;
      qns.notsubmitanswers=notsubmitanswers;
-      
+     qns.data;
+     qns.select=[];
+     DataService.questions(qns.nextid).then(Repos, onError);
+
+function Repos(data) {
+      qns.data = data;
+      qns.data.selected = null;
+    };
+
+function onError(reason) {
+      qns.error = "could not find user";
+    };
+
 function setActiveQuestion(index){
       qns.activeQuestion=qns.nextid;
       qns.index++;
+      DataService.questions(qns.nextid).then(Repos, onError);
+      function Repos(data) {
+      qns.data = data;
+      qns.data.selected = null;
+      console.log(qns.data.selected)
+    };
+
+function onError(reason) {
+      qns.error = "could not find user";
+    };
 }
 
 function questionAnswered(value){
 //getting length of questions
   var questionslength= DataService.questions.length;
   numquestionsAnswered = 0;
+  qns.select.push(qns.index);
  //if question have been answered pushing weightage into array and taking total weightage of answered questions
- if(DataService.questions[qns.activeQuestion].selected !== null){
+ if(qns.data.selected !== null){
    qns.sum.push(qns.totalweight);
+   console.log(qns.sum)
    var nexttotal=0;
    for ( var i = 0, _len = qns.sum.length; i < _len; i++ ) {
        nexttotal+= parseInt(qns.sum[i]);
@@ -45,7 +69,7 @@ function questionAnswered(value){
 
  for(var x = 0; x < questionslength; x++){
  //if active question have been answered
-  if(DataService.questions[qns.activeQuestion].selected !== null){
+  if(qns.data.selected !== null){
    numquestionsAnswered++;
     if(qns.nextid=== null){
     qns.error= false;
@@ -61,11 +85,12 @@ qns.setActiveQuestion();
  function selectAnswer(value,index){
     //getting weight of answer
    var total=value.weight;
-   var nextid= value.nextid;
-   console.log(nextid);
+   var nextid= value.next_qid;
+  // console.log(nextid);
    qns.totalweight=total;
    qns.nextid=nextid;
-   DataService.questions[qns.activeQuestion].selected=index;
+   qns.data.selected=index;
+    console.log(qns.data.selected)
  }
  function finaliseAnswers(){
     numquestionsAnswered= 0;
@@ -76,7 +101,7 @@ qns.setActiveQuestion();
   }
 
   function notsubmitanswers(){
-     numquestionsAnswered= 0;
+    numquestionsAnswered= 0;
     qns.activeQuestion= 0;
     qns.finalise= false;
     QsnMetrics.changeState("qnsnt", false);

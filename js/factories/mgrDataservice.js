@@ -7,8 +7,6 @@ function MgrDataService(){
     };
     return mgrdataobj;
 }
-
-
  var Questions  = [
      {
             type: "text",
