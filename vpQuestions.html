@@ -1,0 +1,76 @@
+<div class="container">
+            <!-- Progress Area -->
+        <div ng-controller="VPQuestionsController as qns" ng-show="qns.QsnMetrics.StartActive">
+            <div class="row" id="progress"> 
+                <div class="col-xs-8">
+                    <h2>Progress:</h2>
+                    <div class="btn-toolbar">
+                        <button class="btn"
+                         ng-repeat="question in qns.select" 
+                            ng-class="{'btn-success disabled': question[qns.index] !== null, 'btn-danger': question[qns.index]  === null}">
+                            <span class="glyphicon" ng-class="{'glyphicon-pencil': question[qns.index]  !== null, 'glyphicon-question-sign': 
+                            question[qns.index]   ===null}" >
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="row">
+                        <h4>Legend:</h4>
+                        <div class="col-sm-4">
+                            <button class="btn btn-success">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <p>Answered</p>
+                        </div>
+                      <!--  <div class="col-sm-4">
+                            <button class="btn btn-danger">
+                                <span class="glyphicon glyphicon-question-sign"></span>
+                            </button>
+                            <p>Unanswered</p>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+            <!-- end of progress area -->
+
+                <div class="row">
+                     <!-- for showing alert when user have not answered all of the questions -->
+                     <div class="alert alert-danger" ng-show="qns.error">
+                        <strong>Error!</strong> You have not answered all of the questions.
+                        <button class="close" ng-click= "qns.error = false">&times</button>
+                        </div>
+               <h3 ng-hide="qns.finalise" id="questionhead">Question:</h3>
+                <div class="well well-sm" ng-hide="qns.finalise" id="question">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <!--Question-->
+                            <h4 >{{qns.index+1 + ". " + qns.data.qtext}}</h4>
+                            <div class="row">
+                                <!-- answer-->
+                                <div class= "col-sm-6" ng-repeat= "answer in qns.data.possibilities" >
+                                <h4 class="answer" ng-class="{'btn-success': $index=== qns.data.selected}"
+                                ng-click="qns.selectAnswer(answer,$index)">
+                                    {{answer.atext}} 
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                        <button id="next" class="btn btn-success" ng-show="qns.data.selected !==null"
+                                ng-class="{'btn-success': $index=== qns.data.selected!==null}"
+                                 ng-click="qns.questionAnswered()">Next</button>
+                                 <br>
+                        <div> <br></br>Weightage is: {{qns.nexttotal}} </div>
+                        </div>
+                           
+                <!-- for showing alert to submit result -->
+                 <div ng-show="qns.finalise" id="submit-alert">
+                        <div class="col-xs-12">
+                            <h3>Are you sure you want to submit your answers?</h3>
+                            <button class="btn btn-success" ng-click="qns.finaliseAnswers()">Yes</button>
+                            <button class="btn btn-danger" ng-click="qns.notsubmitanswers()">No</button>
+                    </div>
+                </div>
+            </div>
+         </div>

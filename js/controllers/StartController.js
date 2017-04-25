@@ -1,19 +1,18 @@
 (function() {
  var app = angular.module("Questionaire");
  app.controller('StartController', StartController);
- StartController.$inject= ['QsnMetrics','DataService','$rootScope', 'MgrDataService','MgrQsnMetrics'];
- function StartController(QsnMetrics, DataService,$rootScope, MgrDataService,MgrQsnMetrics){
+ StartController.$inject= ['QsnMetrics','$rootScope','$http','$location'];
+ function StartController(QsnMetrics, $rootScope,$http,$location){
      strt=this;
      strt.QsnMetrics=QsnMetrics;
-     strt.MgrQsnMetrics=MgrQsnMetrics;
-     strt.StartQuestionaire=StartQuestionaire;
+     strt.getData=getData;
      strt.data = {
      availableOptions: [
-      {id: '1', name: 'Vice President'},
-      {id: '2', name: 'Manager'},
-      {id: '3', name: 'Lead'}
+      {id: '1', name: 'Vice President', value: 'VP'},
+      {id: '2', name: 'Manager', value: 'MGR'},
+      {id: '3', name: 'Lead', value: 'LEAD'}
     ],
-    selectedOption: {id: '1', name: 'Vice President'} //This sets the default value of the select in the ui
+    selectedOption: {id: '1', name: 'Vice President', value: 'VP'} //This sets the default value of the select in the ui
   };
   strt.companycategory = {
     categoryOptions: [
@@ -23,16 +22,17 @@
     ],
     selectedCategory: {id: '1', cat: 'Sales'} //This sets the default value for company category  of the select in the ui
   };
-    function StartQuestionaire(selectedRole){
-        $rootScope.selectedRole=selectedRole.name
-         if($rootScope.selectedRole=="Vice President"){
+     function getData( selectedRole){
+$http.get("http://172.16.29.64:3000/questions/getFirstQuestionByRoleAndTeam/?role=" +selectedRole.value+ "&team=SALES").then(function(response) {
+        console.log(response.data);
+       question=response.data.role;
+      $rootScope.questionLable=response.data;
           QsnMetrics.changeState("qns",true);
-        }
-    else if($rootScope.selectedRole=="Manager"){
-     MgrQsnMetrics.changeStatemgr("qnst",true);
-        }
-   }
-   };
+          $location.path('/vpQuestions')
+      });
+    }
+  };
+
 }());
 
 

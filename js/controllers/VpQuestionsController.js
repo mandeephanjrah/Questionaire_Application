@@ -1,11 +1,11 @@
 (function(){
 var app = angular.module("Questionaire");
-app.controller('QuestionsController', QuestionsController);
-QuestionsController.$inject=['QsnMetrics','DataService','$rootScope'];
-function QuestionsController(QsnMetrics, DataService, $rootScope, $state){
+app.controller('VPQuestionsController', QuestionsController);
+QuestionsController.$inject=['QsnMetrics','$rootScope', '$location'];
+function QuestionsController(QsnMetrics, $rootScope, $location){
      qns=this;
+     qns.start=0;
      qns.QsnMetrics=QsnMetrics;
-     qns.DataService=DataService;
      qns.questionAnswered= questionAnswered;
      qns.setActiveQuestion= setActiveQuestion;
      qns.selectAnswer= selectAnswer;
@@ -18,26 +18,24 @@ function QuestionsController(QsnMetrics, DataService, $rootScope, $state){
      qns.totalweight;
      $rootScope.totalweight;
      qns.nexttotal;
-     qns.nextid= 1;
+     qns.nextid;
      qns.index=0;
      qns.notsubmitanswers=notsubmitanswers;
      qns.data;
+     qns.selectedRole;
      qns.select=[];
-     DataService.questions(qns.nextid).then(Repos, onError);
+  
+qns.data=$rootScope.questionLable;
+console.log(qns.data)
+qns.data.selected = null;
+console.log(qns.data);
 
-function Repos(data) {
-      qns.data = data;
-      qns.data.selected = null;
-    };
-
-function onError(reason) {
-      qns.error = "could not find user";
-    };
+     
 
 function setActiveQuestion(index){
       qns.activeQuestion=qns.nextid;
       qns.index++;
-      DataService.questions(qns.nextid).then(Repos, onError);
+      QsnMetrics.questions(qns.nextid).then(Repos, onError);
       function Repos(data) {
       qns.data = data;
       qns.data.selected = null;
@@ -51,7 +49,7 @@ function onError(reason) {
 
 function questionAnswered(value){
 //getting length of questions
-  var questionslength= DataService.questions.length;
+  var questionslength= QsnMetrics.questions.length;
   numquestionsAnswered = 0;
   qns.select.push(qns.index);
  //if question have been answered pushing weightage into array and taking total weightage of answered questions
@@ -98,21 +96,26 @@ qns.setActiveQuestion();
     qns.finalise= false;
     QsnMetrics.changeState("qns", false);
     QsnMetrics.changeState("results", true);
+    $location.path('/result')
   }
 
   function notsubmitanswers(){
-    numquestionsAnswered= 0;
+   numquestionsAnswered= 0;
     qns.activeQuestion= 0;
     qns.finalise= false;
-    QsnMetrics.changeState("qnsnt", false);
-    QsnMetrics.changeState("resultsss", false);
+    QsnMetrics.changeState("qns", false);
+    QsnMetrics.changeState("results", false);
      qns.index=0;
     qns.nextid=0;
      $rootScope.totalweight=0;
      qns.sum=[];
     qns.nexttotal=0;
-    window.location.reload();
+     qns.data=0;
+   // window.location.reload();
+    $location.path('/')
   }
- }
+    
+    } 
+
 }());
 
