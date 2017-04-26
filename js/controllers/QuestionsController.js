@@ -1,6 +1,6 @@
 (function(){
 var app = angular.module("Questionaire");
-app.controller('VPQuestionsController', QuestionsController);
+app.controller('QuestionsController', QuestionsController);
 QuestionsController.$inject=['QsnMetrics','$rootScope', '$location'];
 function QuestionsController(QsnMetrics, $rootScope, $location){
      qns=this;
@@ -25,10 +25,10 @@ function QuestionsController(QsnMetrics, $rootScope, $location){
      qns.selectedRole;
      qns.select=[];
   
-qns.data=$rootScope.questionLable;
-console.log(qns.data)
-qns.data.selected = null;
-console.log(qns.data);
+    qns.data=$rootScope.questionLable;
+    console.log(qns.data)
+    qns.data.selected = null;
+    console.log(qns.data);
 
      
 
@@ -111,7 +111,6 @@ qns.setActiveQuestion();
      qns.sum=[];
     qns.nexttotal=0;
      qns.data=0;
-   // window.location.reload();
     $location.path('/')
   }
     

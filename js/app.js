@@ -3,12 +3,12 @@ var app=angular.module("Questionaire", ["ngRoute"]);
   app.config(function($routeProvider) {
     $routeProvider
     .when("/", {
-     templateUrl : "Start.html",
+     templateUrl : "start.html",
       controller: "StartController"
     })
-    .when("/vpQuestions", {
-      templateUrl: "vpQuestions.html",
-      controller: "VPQuestionsController"
+    .when("/questions", {
+      templateUrl: "questions.html",
+      controller: "QuestionsController"
     })
     .when("/result", {
       templateUrl: "result.html",

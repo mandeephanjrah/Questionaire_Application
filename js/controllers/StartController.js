@@ -22,17 +22,17 @@
     ],
     selectedCategory: {id: '1', cat: 'Sales'} //This sets the default value for company category  of the select in the ui
   };
-     function getData( selectedRole){
-$http.get("http://172.16.29.64:3000/questions/getFirstQuestionByRoleAndTeam/?role=" +selectedRole.value+ "&team=SALES").then(function(response) {
-        console.log(response.data);
-       question=response.data.role;
-      $rootScope.questionLable=response.data;
-          QsnMetrics.changeState("qns",true);
-          $location.path('/vpQuestions')
+
+//getting data according to selected value through $http call
+function getData( selectedRole){
+        $http.get("http://172.16.29.64:3000/questions/getFirstQuestionByRoleAndTeam/?role=" +selectedRole.value+ "&team=SALES").then(function(response) {
+        question=response.data.role;
+        $rootScope.questionLable=response.data;
+        QsnMetrics.changeState("qns",true);
+        $location.path('/questions')
       });
     }
   };
-
 }());
 
 

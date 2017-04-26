@@ -26,14 +26,6 @@ QsnMetrics.$inject= ['$rootScope', '$http'];
          qnsobj.resultActive=state;
          qnsobj.totalweight=$rootScope.totalweight;
     }
-    else if(metric==="qnsnt"){
-         qnsobj.StartActive=state;
-         qnsobj.nextweight=$rootScope.totalweight;
-    }
-    else if(metric==="resultsss"){
-        qnsobj.resultActive=state;
-        qnsobj.totalweight=$rootScope.totalweight;
-    }
     else{
         return false;
     }
