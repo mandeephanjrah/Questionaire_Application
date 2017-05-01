@@ -30,9 +30,7 @@ function QuestionsController(QsnMetrics, $rootScope, $location){
     qns.data.selected = null;
     console.log(qns.data);
 
-     
-
-function setActiveQuestion(index){
+     function setActiveQuestion(index){
       qns.activeQuestion=qns.nextid;
       qns.index++;
       QsnMetrics.questions(qns.nextid).then(Repos, onError);
